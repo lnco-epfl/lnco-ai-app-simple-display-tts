@@ -19,6 +19,7 @@ import TextEditor from '@graasp/ui/text-editor';
 import {
   AppSettingsType,
   CheckboxComponent,
+  EmailComponent,
   Page,
   PageComponent,
   TimerComponent,
@@ -30,6 +31,7 @@ const COMPONENT_LABELS: Record<string, string> = {
   text: 'Text',
   timer: 'Timer',
   checkbox: 'Checkbox',
+  email: 'Email',
 };
 
 // ---- Text ----
@@ -125,6 +127,55 @@ const CheckboxComponentEditor: FC<{
           />
         }
         label={t('SETTINGS.PAGES.COMPONENT.CHECKBOX.REQUIRED_LABEL')}
+      />
+    </Stack>
+  );
+};
+
+// ---- Email ----
+
+const EmailComponentEditor: FC<{
+  component: EmailComponent;
+  onUpdate: (updated: EmailComponent) => void;
+}> = ({ component, onUpdate }) => {
+  const { t } = useTranslation();
+  const [postUrl, setPostUrl] = useState(component.postUrl);
+  const [placeholder, setPlaceholder] = useState(component.placeholder);
+
+  useEffect(() => setPostUrl(component.postUrl), [component.postUrl]);
+  useEffect(
+    () => setPlaceholder(component.placeholder),
+    [component.placeholder],
+  );
+
+  return (
+    <Stack spacing={2}>
+      <TextField
+        size="small"
+        label={t('SETTINGS.PAGES.COMPONENT.EMAIL.POST_URL_LABEL')}
+        value={postUrl}
+        onChange={(e): void => setPostUrl(e.target.value)}
+        onBlur={(): void => onUpdate({ ...component, postUrl })}
+        fullWidth
+      />
+      <TextField
+        size="small"
+        label={t('SETTINGS.PAGES.COMPONENT.EMAIL.PLACEHOLDER_LABEL')}
+        value={placeholder}
+        onChange={(e): void => setPlaceholder(e.target.value)}
+        onBlur={(): void => onUpdate({ ...component, placeholder })}
+        fullWidth
+      />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={component.required}
+            onChange={(e): void =>
+              onUpdate({ ...component, required: e.target.checked })
+            }
+          />
+        }
+        label={t('SETTINGS.PAGES.COMPONENT.EMAIL.REQUIRED_LABEL')}
       />
     </Stack>
   );
@@ -228,6 +279,12 @@ const ComponentEditor: FC<Props> = ({
         )}
         {component.type === 'checkbox' && (
           <CheckboxComponentEditor
+            component={component}
+            onUpdate={handleUpdateComponent}
+          />
+        )}
+        {component.type === 'email' && (
+          <EmailComponentEditor
             component={component}
             onUpdate={handleUpdateComponent}
           />

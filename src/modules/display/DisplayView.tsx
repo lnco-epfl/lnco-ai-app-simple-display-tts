@@ -8,13 +8,18 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { ConsentCheck } from '@/config/appData';
-import { CheckboxComponent, TimerComponent } from '@/config/appSettings';
+import {
+  CheckboxComponent,
+  EmailComponent,
+  TimerComponent,
+} from '@/config/appSettings';
 
 import { AudioNarration } from '../audio/AudioNarration';
 import { AudioNarrationControls } from '../audio/AudioNarrationControls';
 import { useSettings } from '../context/SettingsContext';
 import useUserAnswers from '../context/UserAnswersContext';
 import CheckboxBlock from './components/CheckboxBlock';
+import EmailBlock from './components/EmailBlock';
 import TextBlock from './components/TextBlock';
 import TimerBlock from './components/TimerBlock';
 
@@ -26,6 +31,7 @@ const DisplayView: FC = () => {
   const [pageIndex, setPageIndex] = useState(0);
   const [checkedState, setCheckedState] = useState<Record<string, boolean>>({});
   const [timersDone, setTimersDone] = useState<Record<string, boolean>>({});
+  const [emailsDone, setEmailsDone] = useState<Record<string, boolean>>({});
   const [allConsentChecks, setAllConsentChecks] = useState<ConsentCheck[]>([]);
 
   const narration = useMemo(() => new AudioNarration(), []);
@@ -62,11 +68,22 @@ const DisplayView: FC = () => {
     [currentPage],
   );
 
+  const emailComponents = useMemo(
+    () =>
+      (currentPage?.components.filter((c) => c.type === 'email') ??
+        []) as EmailComponent[],
+    [currentPage],
+  );
+
   const allTimersDone = timerComponents.every((tc) => timersDone[tc.id]);
   const allRequiredChecked = checkboxComponents
     .filter((c) => c.required)
     .every((c) => checkedState[c.id]);
-  const canContinue = allTimersDone && allRequiredChecked;
+  const allRequiredEmailsDone = emailComponents
+    .filter((c) => c.required)
+    .every((c) => emailsDone[c.id]);
+  const canContinue =
+    allTimersDone && allRequiredChecked && allRequiredEmailsDone;
 
   const handleContinue = useCallback(() => {
     const pageChecks: ConsentCheck[] = checkboxComponents.map((c) => ({
@@ -85,6 +102,7 @@ const DisplayView: FC = () => {
       setPageIndex((prev) => prev + 1);
       setCheckedState({});
       setTimersDone({});
+      setEmailsDone({});
     }
   }, [
     checkboxComponents,
@@ -106,11 +124,16 @@ const DisplayView: FC = () => {
     const hasAutoContinueTimerDone = timerComponents.some(
       (tc) => tc.autoContinue && timersDone[tc.id],
     );
-    if (hasAutoContinueTimerDone && allTimersDone && allRequiredChecked) {
+    if (
+      hasAutoContinueTimerDone &&
+      allTimersDone &&
+      allRequiredChecked &&
+      allRequiredEmailsDone
+    ) {
       handleContinueRef.current();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timersDone, checkedState]);
+  }, [timersDone, checkedState, emailsDone]);
 
   if (!pages.length) {
     return (
@@ -147,6 +170,16 @@ const DisplayView: FC = () => {
                     ...prev,
                     [component.id]: checked,
                   }))
+                }
+              />
+            );
+          case 'email':
+            return (
+              <EmailBlock
+                key={component.id}
+                component={component}
+                onSubmitSuccess={() =>
+                  setEmailsDone((prev) => ({ ...prev, [component.id]: true }))
                 }
               />
             );

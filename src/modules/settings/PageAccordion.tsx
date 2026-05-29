@@ -5,6 +5,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NotesIcon from '@mui/icons-material/Notes';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
@@ -26,6 +27,7 @@ import ComponentEditor from './ComponentEditor';
 import {
   moveItem,
   newCheckboxComponent,
+  newEmailComponent,
   newTextComponent,
   newTimerComponent,
   updatePage,
@@ -60,9 +62,12 @@ const PageAccordion: FC<Props> = ({ pages, pageIndex, saveSettings }) => {
     text: newTextComponent,
     timer: newTimerComponent,
     checkbox: newCheckboxComponent,
+    email: newEmailComponent,
   };
 
-  const addComponent = (type: 'text' | 'timer' | 'checkbox'): void => {
+  const addComponent = (
+    type: 'text' | 'timer' | 'checkbox' | 'email',
+  ): void => {
     const newComp = componentFactories[type]();
     handleUpdatePage((p) => ({
       ...p,
@@ -170,6 +175,14 @@ const PageAccordion: FC<Props> = ({ pages, pageIndex, saveSettings }) => {
               onClick={() => addComponent('checkbox')}
             >
               {t('SETTINGS.PAGES.ADD_CHECKBOX')}
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              startIcon={<EmailOutlinedIcon />}
+              onClick={() => addComponent('email')}
+            >
+              {t('SETTINGS.PAGES.ADD_EMAIL')}
             </Button>
           </Stack>
         </Stack>

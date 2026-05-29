@@ -1,5 +1,6 @@
 import {
   CheckboxComponent,
+  EmailComponent,
   Page,
   PageComponent,
   TextComponent,
@@ -26,6 +27,14 @@ export const newCheckboxComponent = (): CheckboxComponent => ({
   type: 'checkbox',
   label: '',
   required: false,
+});
+
+export const newEmailComponent = (): EmailComponent => ({
+  id: newId(),
+  type: 'email',
+  placeholder: '',
+  postUrl: '',
+  required: true,
 });
 
 export const newPage = (): Page => ({

@@ -4,6 +4,15 @@
     "CONTINUE_BUTTON": "Continue",
     "TIMER_OVER_MESSAGE": "Time is up!",
     "NO_PAGES_MESSAGE": "No content has been configured for this activity.",
+    "EMAIL": {
+      "LABEL": "Email address",
+      "PLACEHOLDER": "your@email.com",
+      "SUBMIT": "Submit",
+      "SUBMITTING": "Submitting…",
+      "SUCCESS": "Email submitted successfully.",
+      "ERROR": "Submission failed. Please try again.",
+      "INVALID": "Please enter a valid email address."
+    },
     "ANSWERS": {
       "TITLE": "Completions",
       "TABLE": {
@@ -32,6 +41,7 @@
         "ADD_TEXT": "Add text",
         "ADD_TIMER": "Add timer",
         "ADD_CHECKBOX": "Add checkbox",
+        "ADD_EMAIL": "Add email",
         "AUDIO": {
           "SELECT_LABEL": "Audio",
           "NONE": "No audio",
@@ -51,6 +61,11 @@
           },
           "CHECKBOX": {
             "LABEL": "Checkbox label",
+            "REQUIRED_LABEL": "Required before continuing"
+          },
+          "EMAIL": {
+            "POST_URL_LABEL": "POST URL",
+            "PLACEHOLDER_LABEL": "Placeholder text (optional)",
             "REQUIRED_LABEL": "Required before continuing"
           }
         }

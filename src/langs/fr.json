@@ -4,6 +4,15 @@
     "CONTINUE_BUTTON": "Continuer",
     "TIMER_OVER_MESSAGE": "Le temps est écoulé !",
     "NO_PAGES_MESSAGE": "Aucun contenu n'a été configuré pour cette activité.",
+    "EMAIL": {
+      "LABEL": "Adresse e-mail",
+      "PLACEHOLDER": "votre@email.com",
+      "SUBMIT": "Envoyer",
+      "SUBMITTING": "Envoi en cours…",
+      "SUCCESS": "E-mail soumis avec succès.",
+      "ERROR": "Échec de la soumission. Veuillez réessayer.",
+      "INVALID": "Veuillez saisir une adresse e-mail valide."
+    },
     "ANSWERS": {
       "TITLE": "Complétions",
       "TABLE": {
@@ -32,6 +41,7 @@
         "ADD_TEXT": "Ajouter du texte",
         "ADD_TIMER": "Ajouter un minuteur",
         "ADD_CHECKBOX": "Ajouter une case",
+        "ADD_EMAIL": "Ajouter un e-mail",
         "AUDIO": {
           "SELECT_LABEL": "Audio",
           "NONE": "Pas d'audio",
@@ -51,6 +61,11 @@
           },
           "CHECKBOX": {
             "LABEL": "Libellé de la case",
+            "REQUIRED_LABEL": "Obligatoire avant de continuer"
+          },
+          "EMAIL": {
+            "POST_URL_LABEL": "URL de destination (POST)",
+            "PLACEHOLDER_LABEL": "Texte indicatif (optionnel)",
             "REQUIRED_LABEL": "Obligatoire avant de continuer"
           }
         }

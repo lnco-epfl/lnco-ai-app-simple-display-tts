@@ -18,7 +18,19 @@ export type CheckboxComponent = {
   required: boolean;
 };
 
-export type PageComponent = TextComponent | TimerComponent | CheckboxComponent;
+export type EmailComponent = {
+  id: string;
+  type: 'email';
+  placeholder: string;
+  postUrl: string;
+  required: boolean;
+};
+
+export type PageComponent =
+  | TextComponent
+  | TimerComponent
+  | CheckboxComponent
+  | EmailComponent;
 
 export type Page = {
   id: string;
