@@ -1,9 +1,19 @@
+@import 'react-quill/dist/quill.snow.css';
+
 /* define colors */
 :root {
   --graasp-primary: #5050d2;
   --code-bg: rgba(197, 197, 197, 0.37);
   --monospace-fonts: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
     'Liberation Mono', monospace;
+}
+
+/* Constrain images in the Quill editor and in rendered text blocks */
+.ql-editor img,
+.text-block img {
+  max-width: 80%;
+  height: auto;
+  display: block;
 }
 
 body {

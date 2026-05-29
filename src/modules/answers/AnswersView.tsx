@@ -12,32 +12,47 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 
 import useUserAnswers from '../context/UserAnswersContext';
-import UserAnswerRow from './UserAnswerRow';
 
 const AnswersView: FC = () => {
-  const { t } = useTranslation('translations', { keyPrefix: 'ANSWERS' });
-  const { allAnswersAppData } = useUserAnswers();
+  const { t } = useTranslation();
+  const { allCompletionsAppData } = useUserAnswers();
+
+  const formatDate = (iso: string): string => {
+    try {
+      return new Date(iso).toLocaleString();
+    } catch {
+      return iso;
+    }
+  };
+
   return (
     <Stack spacing={2}>
-      <Typography variant="h1">{t('TITLE')}</Typography>
+      <Typography variant="h1">{t('ANSWERS.TITLE')}</Typography>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="answers table">
+        <Table sx={{ minWidth: 650 }} aria-label="completions table">
           <TableHead>
             <TableRow>
-              <TableCell>{t('TABLE.MEMBER_HEAD')}</TableCell>
-              <TableCell>{t('TABLE.KEY_HEAD')}</TableCell>
-              <TableCell>{t('TABLE.LABEL_HEAD')}</TableCell>
-              <TableCell>{t('TABLE.STATUS_HEAD')}</TableCell>
+              <TableCell>{t('ANSWERS.TABLE.STARTED_AT_HEAD')}</TableCell>
+              <TableCell>{t('ANSWERS.TABLE.COMPLETED_AT_HEAD')}</TableCell>
+              <TableCell>{t('ANSWERS.TABLE.DURATION_HEAD')}</TableCell>
+              <TableCell>{t('ANSWERS.TABLE.CONSENT_HEAD')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {allAnswersAppData &&
-              allAnswersAppData.map((userAnswerAppData, index) => (
-                <UserAnswerRow
-                  key={index}
-                  userAnswerAppData={userAnswerAppData}
-                />
-              ))}
+            {allCompletionsAppData?.map((record) => (
+              <TableRow key={record.id}>
+                <TableCell>{formatDate(record.data.startedAt)}</TableCell>
+                <TableCell>{formatDate(record.data.completedAt)}</TableCell>
+                <TableCell>{record.data.durationSeconds}s</TableCell>
+                <TableCell>
+                  {record.data.consentChecks.length === 0
+                    ? 'N/A'
+                    : record.data.consentChecks
+                        .map((c) => (c.checked ? '✓' : '✗'))
+                        .join(', ')}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

@@ -1,21 +1,29 @@
 import { AppData, AppDataVisibility } from '@graasp/sdk';
 
-import { UserAnswer as UserAnswerType } from '@/interfaces/userAnswer';
+export const COMPLETION_APP_DATA_TYPE = 'completion' as const;
 
-export enum AppDataType {
-  UserAnswer = 'user-answer',
-}
+export type ConsentCheck = {
+  componentId: string;
+  checked: boolean;
+};
 
-export type UserAnswerAppData = AppData & {
-  type: AppDataType.UserAnswer;
-  data: UserAnswerType;
+export type CompletionData = {
+  startedAt: string;
+  completedAt: string;
+  durationSeconds: number;
+  consentChecks: ConsentCheck[];
+};
+
+export type CompletionAppData = AppData & {
+  type: typeof COMPLETION_APP_DATA_TYPE;
+  data: CompletionData;
   visibility: AppDataVisibility.Member;
 };
 
-export const getDefaultUserAnswerAppData = (
-  userAnswer: UserAnswerType,
-): Pick<UserAnswerAppData, 'data' | 'type' | 'visibility'> => ({
-  type: AppDataType.UserAnswer,
-  data: userAnswer,
+export const makeCompletionAppData = (
+  data: CompletionData,
+): Pick<CompletionAppData, 'data' | 'type' | 'visibility'> => ({
+  type: COMPLETION_APP_DATA_TYPE,
+  data,
   visibility: AppDataVisibility.Member,
 });

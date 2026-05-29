@@ -1,58 +1,59 @@
 {
   "translations": {
-    "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit",
-    "Answers": "Answers",
-    "MCQ": {
-      "SUBMIT_OK_TOOLTIP": "Your answer has been submitted.",
-      "SUBMIT_OK_HELPER": "Submitted",
-      "SAVED_TOOLTIP": "Your answer has been saved.",
-      "SAVED_HELPER": "Saved",
-      "RESET_ANSWER": "Reset your answer.",
-      "REQUIRED_CHIP": "Required",
-      "REQUIRED_TOOLTIP": "This question requires an answer.",
-      "SUBMIT": "Submit",
-      "RESET": "Reset"
-    },
+    "Answers": "Completions",
+    "CONTINUE_BUTTON": "Continue",
+    "TIMER_OVER_MESSAGE": "Time is up!",
+    "NO_PAGES_MESSAGE": "No content has been configured for this activity.",
     "ANSWERS": {
-      "TITLE": "Answers",
+      "TITLE": "Completions",
       "TABLE": {
-        "MEMBER_HEAD": "Member",
-        "KEY_HEAD": "Key",
-        "LABEL_HEAD": "Answer",
-        "STATUS_HEAD": "Status",
-        "ROW": {
-          "KEY_ERASED_WARNING": {
-            "STRING_1": "The key ",
-            "STRING_2": " does not exist."
-          },
-          "NO_STATUS": "No status"
-        }
+        "STARTED_AT_HEAD": "Started At",
+        "COMPLETED_AT_HEAD": "Completed At",
+        "DURATION_HEAD": "Duration",
+        "CONSENT_HEAD": "Consent Checks"
       }
     },
     "SETTINGS": {
       "TITLE": "Settings",
       "SAVE_BTN": "Save",
-      "QUESTION": {
-        "TITLE": "Question"
-      },
-      "ANSWERS": {
-        "TITLE": "Answers",
-        "NEW_ANSWER_BTN": "Add a new answer",
-        "DEFAULT_ANSWER_TABLE_HEAD": "Default answer",
-        "MULTIPLE_ANS_SWITCH_LABEL": "Allow multiple answers.",
-        "INPUT": {
-          "KEY_HELP_WARNING": "Please, provide a key.",
-          "KEY_HELP_ERROR": "Please, make sure each key is unique.",
-          "KEY_LABEL": "Key",
-          "VALUE_LABEL": "Value",
-          "ANSWER_LABEL": "Answer"
-        }
-      },
+      "SAVED_BTN": "Saved",
       "GENERAL": {
         "TITLE": "General",
-        "REQUIRED_SWITCH_LABEL": "Mark the question as required.",
-        "AUTOSUBMIT_SWITCH_LABEL": "Submit the answer automatically",
-        "AUTOSUBMIT_MORE_INFO": "If this option is not enabled, the users will have to click on a submit button to send his or her answer."
+        "END_PAGE_LINK_LABEL": "End page link",
+        "END_PAGE_LINK_HELPER": "If set, the final Continue button will redirect here."
+      },
+      "PAGES": {
+        "TITLE": "Pages",
+        "ADD_BTN": "Add page",
+        "PAGE_TITLE": "Page {{n}}",
+        "MOVE_UP": "Move up",
+        "MOVE_DOWN": "Move down",
+        "DELETE": "Delete page",
+        "ADD_TEXT": "Add text",
+        "ADD_TIMER": "Add timer",
+        "ADD_CHECKBOX": "Add checkbox",
+        "AUDIO": {
+          "SELECT_LABEL": "Audio",
+          "NONE": "No audio",
+          "CUSTOM": "Custom URL…",
+          "URL_LABEL": "Audio URL"
+        },
+        "COMPONENT": {
+          "MOVE_UP": "Move up",
+          "MOVE_DOWN": "Move down",
+          "DELETE": "Delete",
+          "TEXT": {
+            "PLACEHOLDER": "Enter text…"
+          },
+          "TIMER": {
+            "DURATION_LABEL": "Duration (minutes)",
+            "AUTO_CONTINUE_LABEL": "Auto-continue when done"
+          },
+          "CHECKBOX": {
+            "LABEL": "Checkbox label",
+            "REQUIRED_LABEL": "Required before continuing"
+          }
+        }
       }
     }
   }

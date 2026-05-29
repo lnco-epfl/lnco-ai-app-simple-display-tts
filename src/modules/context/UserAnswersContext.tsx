@@ -12,143 +12,93 @@ import { useLocalContext } from '@graasp/apps-query-client';
 import { AppData, PermissionLevel, PermissionLevelCompare } from '@graasp/sdk';
 
 import {
-  AppDataType,
-  UserAnswerAppData,
-  getDefaultUserAnswerAppData,
+  COMPLETION_APP_DATA_TYPE,
+  CompletionAppData,
+  CompletionData,
+  ConsentCheck,
+  makeCompletionAppData,
 } from '@/config/appData';
 import { hooks, mutations } from '@/config/queryClient';
-import { UserAnswer, UserAnswerStatus } from '@/interfaces/userAnswer';
 
-import { useSettings } from './SettingsContext';
-
-type UserAnswersContextType = {
-  userAnswer?: UserAnswer;
-  selectAnswer: (userAnswer: UserAnswer) => void;
-  submitAnswer: () => void;
-  deleteAnswer: (id?: UserAnswerAppData['id']) => void;
-  allAnswersAppData?: UserAnswerAppData[];
+type AppStateContextType = {
+  completeApp: (consentChecks: ConsentCheck[]) => void;
+  isCompleted: boolean;
+  allCompletionsAppData?: CompletionAppData[];
 };
 
-const defaultContextValue: UserAnswersContextType = {
-  selectAnswer: () => null,
-  submitAnswer: () => null,
-  deleteAnswer: () => null,
+const defaultContextValue: AppStateContextType = {
+  completeApp: () => null,
+  isCompleted: false,
 };
 
-const UserAnswersContext =
-  createContext<UserAnswersContextType>(defaultContextValue);
+const AppStateContext = createContext<AppStateContextType>(defaultContextValue);
 
 export const UserAnswersProvider: FC<{
   children: ReactElement | ReactElement[];
 }> = ({ children }) => {
-  const { data, isSuccess } = hooks.useAppData<UserAnswer>({
-    type: AppDataType.UserAnswer,
+  const { data, isSuccess } = hooks.useAppData<CompletionData>({
+    type: COMPLETION_APP_DATA_TYPE,
   });
-  const [userAnswerAppData, setUserAnswerAppData] =
-    useState<UserAnswerAppData>();
-  const [allAnswersAppData, setAllAnswersAppData] =
-    useState<UserAnswerAppData[]>();
+  const [startedAt] = useState(() => new Date().toISOString());
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [allCompletionsAppData, setAllCompletionsAppData] =
+    useState<CompletionAppData[]>();
   const { mutate: postAppData } = mutations.usePostAppData();
-  const { mutate: patchAppData } = mutations.usePatchAppData();
-  const { mutate: deleteAppData } = mutations.useDeleteAppData();
   const { permission, memberId } = useLocalContext();
-
-  const { general } = useSettings();
-  const { autosubmit } = general;
 
   const isAdmin = useMemo(
     () => PermissionLevelCompare.gte(permission, PermissionLevel.Admin),
     [permission],
   );
+
   useEffect(() => {
     if (isSuccess) {
-      const allAns = data.filter(
-        (d: AppData) => d.type === AppDataType.UserAnswer,
-      ) as UserAnswerAppData[];
-      setAllAnswersAppData(allAns);
-      setUserAnswerAppData(allAns.find((d) => d.member.id === memberId));
+      const completions = data.filter(
+        (d: AppData) => d.type === COMPLETION_APP_DATA_TYPE,
+      ) as CompletionAppData[];
+      setAllCompletionsAppData(completions);
+      if (completions.some((d) => d.member.id === memberId)) {
+        setIsCompleted(true);
+      }
     }
   }, [isSuccess, data, memberId]);
 
-  const selectAnswer = useMemo(
+  const completeApp = useMemo(
     () =>
-      (userAnswer: UserAnswer): void => {
-        if (userAnswer.multipleKey?.length === 0) {
-          throw new Error('You cannot select an empty answer.');
-        }
-        const payloadData = {
-          ...userAnswer,
-          status: autosubmit
-            ? UserAnswerStatus.Submitted
-            : UserAnswerStatus.Saved,
+      (consentChecks: ConsentCheck[]): void => {
+        const completedAt = new Date().toISOString();
+        const durationSeconds = Math.round(
+          (new Date(completedAt).getTime() - new Date(startedAt).getTime()) /
+            1000,
+        );
+        const completionData: CompletionData = {
+          startedAt,
+          completedAt,
+          durationSeconds,
+          consentChecks,
         };
-        if (userAnswerAppData?.id) {
-          patchAppData({
-            ...userAnswerAppData,
-            data: payloadData,
-          });
-        } else {
-          postAppData(getDefaultUserAnswerAppData(payloadData));
-        }
+        postAppData(makeCompletionAppData(completionData));
+        setIsCompleted(true);
       },
-    [autosubmit, patchAppData, postAppData, userAnswerAppData],
+    [postAppData, startedAt],
   );
 
-  const submitAnswer = useMemo(
-    () => (): void => {
-      if (userAnswerAppData?.id) {
-        const payloadData = {
-          ...userAnswerAppData.data,
-          status: UserAnswerStatus.Submitted,
-        };
-        patchAppData({
-          ...userAnswerAppData,
-          data: payloadData,
-        });
-      } else {
-        throw new Error('No answer to submit.');
-      }
-    },
-    [patchAppData, userAnswerAppData],
-  );
-
-  const deleteAnswer = useMemo(
-    () =>
-      (id?: UserAnswerAppData['id']): void => {
-        if (id) {
-          deleteAppData({ id });
-        } else if (userAnswerAppData) {
-          deleteAppData({ id: userAnswerAppData?.id });
-        }
-      },
-    [deleteAppData, userAnswerAppData],
-  );
   const contextValue = useMemo(
     () => ({
-      userAnswer: userAnswerAppData?.data,
-      selectAnswer,
-      submitAnswer,
-      allAnswersAppData: isAdmin ? allAnswersAppData : undefined,
-      deleteAnswer,
+      completeApp,
+      isCompleted,
+      allCompletionsAppData: isAdmin ? allCompletionsAppData : undefined,
     }),
-    [
-      allAnswersAppData,
-      deleteAnswer,
-      isAdmin,
-      selectAnswer,
-      submitAnswer,
-      userAnswerAppData?.data,
-    ],
+    [completeApp, isCompleted, isAdmin, allCompletionsAppData],
   );
 
   return (
-    <UserAnswersContext.Provider value={contextValue}>
+    <AppStateContext.Provider value={contextValue}>
       {children}
-    </UserAnswersContext.Provider>
+    </AppStateContext.Provider>
   );
 };
 
-const useUserAnswers = (): UserAnswersContextType =>
-  useContext(UserAnswersContext);
+const useUserAnswers = (): AppStateContextType => useContext(AppStateContext);
 
 export default useUserAnswers;
