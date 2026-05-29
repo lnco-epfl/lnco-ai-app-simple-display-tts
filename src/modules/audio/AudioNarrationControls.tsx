@@ -55,6 +55,8 @@ export const AudioNarrationControls: FC<Props> = ({
   const [speed, setSpeedState] = useState(narration.speed);
 
   useEffect(() => {
+    // Sync immediately in case state changed before this effect ran
+    setAudioState(narration.state);
     narration.setOnStateChange(setAudioState);
     return (): void => narration.setOnStateChange(undefined);
   }, [narration]);

@@ -34,6 +34,7 @@ const DisplayView: FC = () => {
   const [timersDone, setTimersDone] = useState<Record<string, boolean>>({});
   const [emailsDone, setEmailsDone] = useState<Record<string, boolean>>({});
   const [allConsentChecks, setAllConsentChecks] = useState<ConsentCheck[]>([]);
+  const [audioActive, setAudioActive] = useState(false);
 
   const narration = useMemo(() => new AudioNarration(), []);
 
@@ -55,10 +56,15 @@ const DisplayView: FC = () => {
   useEffect(() => {
     if (currentPage?.audioSrc) {
       narration.play(currentPage.audioSrc);
+      setAudioActive(true);
     } else {
       narration.stop();
+      setAudioActive(false);
     }
-    return () => narration.stop();
+    return (): void => {
+      narration.stop();
+      setAudioActive(false);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageIndex]);
 
@@ -211,7 +217,7 @@ const DisplayView: FC = () => {
         </Button>
       </Box>
 
-      {currentPage.audioSrc && (
+      {audioActive && (
         <AudioNarrationControls narration={narration} position="bottom-right" />
       )}
     </Stack>

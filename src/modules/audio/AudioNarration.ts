@@ -54,7 +54,13 @@ export class AudioNarration {
     this.audio.addEventListener('ended', this.onEnded);
     this.audio.addEventListener('error', this.onEnded);
 
-    this.audio.play().catch((): void => this.updateState('idle'));
+    this.audio.play().catch((): void => {
+      // Only revert to idle if the audio genuinely isn't playing.
+      // Some browsers reject the Promise but still play (autoplay policy quirk).
+      if (!this.audio || this.audio.paused) {
+        this.updateState('idle');
+      }
+    });
     this.updateState('playing');
   }
 
