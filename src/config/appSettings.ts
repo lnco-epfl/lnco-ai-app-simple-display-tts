@@ -38,12 +38,16 @@ export type Page = {
   components: PageComponent[];
 };
 
+export type AppLanguage = 'en' | 'fr';
+
 export type AppSettingsType = {
   pages: Page[];
   endPageLink?: string;
+  language: AppLanguage;
 };
 
 export const DEFAULT_SETTINGS: AppSettingsType = {
   pages: [],
   endPageLink: undefined,
+  language: 'en',
 };

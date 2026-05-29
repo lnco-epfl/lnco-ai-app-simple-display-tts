@@ -13,6 +13,7 @@ import {
   EmailComponent,
   TimerComponent,
 } from '@/config/appSettings';
+import i18n from '@/config/i18n';
 
 import { AudioNarration } from '../audio/AudioNarration';
 import { AudioNarrationControls } from '../audio/AudioNarrationControls';
@@ -39,6 +40,16 @@ const DisplayView: FC = () => {
   const { pages } = settings;
   const currentPage = pages[pageIndex];
   const isLastPage = pageIndex === pages.length - 1;
+
+  // Apply player language from settings, restore on unmount
+  useEffect(() => {
+    const prev = i18n.language;
+    i18n.changeLanguage(settings.language ?? 'en');
+    return (): void => {
+      i18n.changeLanguage(prev);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.language]);
 
   // Play audio when page changes, stop on cleanup
   useEffect(() => {

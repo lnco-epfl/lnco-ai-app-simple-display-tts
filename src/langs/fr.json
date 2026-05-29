@@ -28,6 +28,7 @@
       "SAVED_BTN": "Enregistré",
       "GENERAL": {
         "TITLE": "Général",
+        "LANGUAGE_LABEL": "Langue du lecteur",
         "END_PAGE_LINK_LABEL": "Lien de fin",
         "END_PAGE_LINK_HELPER": "Si renseigné, le bouton Continuer final redirige ici."
       },

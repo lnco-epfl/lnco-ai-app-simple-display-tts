@@ -28,6 +28,7 @@
       "SAVED_BTN": "Saved",
       "GENERAL": {
         "TITLE": "General",
+        "LANGUAGE_LABEL": "Player language",
         "END_PAGE_LINK_LABEL": "End page link",
         "END_PAGE_LINK_HELPER": "If set, the final Continue button will redirect here."
       },
