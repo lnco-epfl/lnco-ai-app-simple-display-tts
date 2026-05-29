@@ -14,7 +14,7 @@ interface Props {
   expanded?: boolean;
 }
 
-const SPEED_OPTIONS = [0.6, 0.8, 1.0, 1.2];
+// const SPEED_OPTIONS = [0.6, 0.8, 1.0, 1.2];
 
 const positionStyles: Record<ControlsPosition, React.CSSProperties> = {
   'top-left': { top: 16, left: 16 },
@@ -33,15 +33,15 @@ const btnStyle: React.CSSProperties = {
   lineHeight: 1,
 };
 
-const selectStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.15)',
-  border: 'none',
-  borderRadius: 6,
-  color: '#fff',
-  fontSize: 12,
-  padding: '2px 4px',
-  cursor: 'pointer',
-};
+// const selectStyle: React.CSSProperties = {
+//   background: 'rgba(255,255,255,0.15)',
+//   border: 'none',
+//   borderRadius: 6,
+//   color: '#fff',
+//   fontSize: 12,
+//   padding: '2px 4px',
+//   cursor: 'pointer',
+// };
 
 export const AudioNarrationControls: FC<Props> = ({
   narration,
@@ -52,7 +52,7 @@ export const AudioNarrationControls: FC<Props> = ({
     narration.state,
   );
   const [volume, setVolumeState] = useState(narration.volume);
-  const [speed, setSpeedState] = useState(narration.speed);
+  // const [speed, setSpeedState] = useState(narration.speed);
 
   useEffect(() => {
     // Sync immediately in case state changed before this effect ran
@@ -66,10 +66,10 @@ export const AudioNarrationControls: FC<Props> = ({
     setVolumeState(v);
   };
 
-  const handleSpeedChange = (s: number): void => {
-    narration.setSpeed(s);
-    setSpeedState(s);
-  };
+  // const handleSpeedChange = (s: number): void => {
+  //   narration.setSpeed(s);
+  //   setSpeedState(s);
+  // };
 
   const isPlaying = audioState === 'playing';
   const isIdle = audioState === 'idle';
@@ -129,25 +129,6 @@ export const AudioNarrationControls: FC<Props> = ({
             style={{ width: 70, accentColor: '#fff' }}
             title="Volume"
           />
-
-          <select
-            value={speed}
-            onChange={(e): void =>
-              handleSpeedChange(parseFloat(e.target.value))
-            }
-            style={selectStyle}
-            title="Speed"
-          >
-            {SPEED_OPTIONS.map((s) => (
-              <option
-                key={s}
-                value={s}
-                style={{ background: '#1e1e1e', color: '#fff' }}
-              >
-                {s}×
-              </option>
-            ))}
-          </select>
         </>
       )}
     </div>
