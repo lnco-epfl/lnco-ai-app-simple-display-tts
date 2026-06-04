@@ -1,12 +1,14 @@
-import type { Database, LocalContext } from '@graasp/apps-query-client';
+import type { Database } from '@lnco-ai/apps-query-client';
 import {
+  AccountType,
   AppItemFactory,
   CompleteMember,
   DiscriminatedItem,
   ItemType,
+  LocalContext,
   MemberFactory,
   PermissionLevel,
-} from '@graasp/sdk';
+} from '@lnco-ai/sdk';
 
 import { API_HOST } from '@/config/env';
 
@@ -15,7 +17,7 @@ export const mockMembers: CompleteMember[] = [
     id: 'mock-member-id-1',
     name: 'I (current member)',
     email: 'i@graasp.org',
-    type: 'individual',
+    type: AccountType.Individual,
     createdAt: new Date('1996-09-08T19:00:00').toISOString(),
     updatedAt: new Date().toISOString(),
   }),
@@ -23,7 +25,7 @@ export const mockMembers: CompleteMember[] = [
     id: 'mock-member-id-2',
     name: 'You',
     email: 'you@graasp.org',
-    type: 'individual',
+    type: AccountType.Individual,
     createdAt: new Date('1995-02-02T15:00:00').toISOString(),
     updatedAt: new Date().toISOString(),
   }),
@@ -34,7 +36,7 @@ export const defaultMockContext: LocalContext = {
   permission: PermissionLevel.Admin,
   context: 'builder',
   itemId: '1234-1234-123456-8123-123456',
-  memberId: mockMembers[0].id,
+  accountId: mockMembers[0].id,
 };
 
 export const mockItem: DiscriminatedItem = AppItemFactory({
@@ -57,6 +59,7 @@ const buildDatabase = (members?: CompleteMember[]): Database => ({
   members: members ?? mockMembers,
   appSettings: [],
   items: [mockItem],
+  uploadedFiles: [],
 });
 
 export default buildDatabase;

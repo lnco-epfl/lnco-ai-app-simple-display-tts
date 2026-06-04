@@ -32,6 +32,8 @@ const AnswersView: FC = () => {
         <Table sx={{ minWidth: 650 }} aria-label="completions table">
           <TableHead>
             <TableRow>
+              <TableCell>{t('ANSWERS.TABLE.PARTICIPANT_ID_HEAD')}</TableCell>
+              <TableCell>{t('ANSWERS.TABLE.PARTICIPANT_CODE_HEAD')}</TableCell>
               <TableCell>{t('ANSWERS.TABLE.STARTED_AT_HEAD')}</TableCell>
               <TableCell>{t('ANSWERS.TABLE.COMPLETED_AT_HEAD')}</TableCell>
               <TableCell>{t('ANSWERS.TABLE.DURATION_HEAD')}</TableCell>
@@ -41,6 +43,8 @@ const AnswersView: FC = () => {
           <TableBody>
             {allCompletionsAppData?.map((record) => (
               <TableRow key={record.id}>
+                <TableCell>{record.data.participantId ?? '—'}</TableCell>
+                <TableCell>{record.data.participantCode ?? '—'}</TableCell>
                 <TableCell>{formatDate(record.data.startedAt)}</TableCell>
                 <TableCell>{formatDate(record.data.completedAt)}</TableCell>
                 <TableCell>{record.data.durationSeconds}s</TableCell>

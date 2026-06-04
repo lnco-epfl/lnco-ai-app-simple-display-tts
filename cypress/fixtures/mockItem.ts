@@ -1,4 +1,4 @@
-import { DiscriminatedItem, ItemType } from '@graasp/sdk';
+import { DiscriminatedItem, ItemType } from '@lnco-ai/sdk';
 
 import { MEMBERS } from './members';
 

@@ -30,7 +30,23 @@ const TimerBlock: FC<Props> = ({ component, onComplete }) => {
   }, [isOver]);
 
   useEffect(() => {
-    if (isOver) onComplete();
+    if (!isOver) return;
+    onComplete();
+    try {
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = 880;
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.4);
+      osc.onended = () => ctx.close();
+    } catch {
+      // AudioContext unavailable — silent fallback
+    }
     // onComplete is intentionally excluded — it uses stable setState updaters
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOver]);

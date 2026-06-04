@@ -1,5 +1,5 @@
-import { useLocalContext } from '@graasp/apps-query-client';
-import { PermissionLevel } from '@graasp/sdk';
+import { useLocalContext } from '@lnco-ai/apps-query-client';
+import { PermissionLevel } from '@lnco-ai/sdk';
 
 import AdminView from './AdminView';
 import PlayerView from './PlayerView';

@@ -1,4 +1,4 @@
-import { AppSetting } from '@graasp/sdk';
+import { AppSetting } from '@lnco-ai/sdk';
 
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
 

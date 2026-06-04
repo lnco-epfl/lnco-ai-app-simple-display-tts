@@ -2,6 +2,8 @@
   "translations": {
     "Answers": "Completions",
     "CONTINUE_BUTTON": "Continue",
+    "SCROLL_DOWN": "Scroll down",
+    "SCROLL_UP": "Scroll up",
     "TIMER_OVER_MESSAGE": "Time is up!",
     "NO_PAGES_MESSAGE": "No content has been configured for this activity.",
     "EMAIL": {
@@ -16,6 +18,8 @@
     "ANSWERS": {
       "TITLE": "Completions",
       "TABLE": {
+        "PARTICIPANT_ID_HEAD": "Participant ID",
+        "PARTICIPANT_CODE_HEAD": "Participant Code",
         "STARTED_AT_HEAD": "Started At",
         "COMPLETED_AT_HEAD": "Completed At",
         "DURATION_HEAD": "Duration",
