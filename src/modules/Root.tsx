@@ -109,7 +109,6 @@ const theme = responsiveFontSizes(
 const RootDiv = styled('div')({
   flexGrow: 1,
   height: '100%',
-  margin: '20px 0',
 });
 
 const Root: FC = () => {

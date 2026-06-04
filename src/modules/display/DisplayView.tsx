@@ -112,7 +112,7 @@ const DisplayView: FC = () => {
     if (isLastPage) {
       completeApp(updatedChecks);
       if (settings.endPageLink) {
-        window.location.href = settings.endPageLink;
+        window.parent.location.href = settings.endPageLink;
       }
     } else {
       setAllConsentChecks(updatedChecks);
@@ -212,6 +212,7 @@ const DisplayView: FC = () => {
           variant="contained"
           disabled={!canContinue}
           onClick={handleContinue}
+          style={{ marginBottom: '15px' }}
         >
           {t('CONTINUE_BUTTON')}
         </Button>
