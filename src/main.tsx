@@ -25,8 +25,11 @@ Sentry.init({
 if (MOCK_API) {
   mockApi(
     {
-      externalUrls: [],
-      dbName: window.Cypress ? 'graasp-app-cypress' : undefined,
+      externalUrls: [
+        'https://script.google.com',
+        'https://script.googleusercontent.com',
+      ],
+      dbName: window.Cypress ? 'graasp-app-cypress' : 'db-3',
       appContext: window.Cypress ? window.appContext : defaultMockContext,
       database: window.Cypress ? window.database : buildDatabase(mockMembers),
     },

@@ -1,5 +1,76 @@
 {
   "translations": {
-    "Welcome to the Graasp App Starter Kit": "Bienvenue dans le kit de démarrage de l'application Graasp"
+    "Answers": "Complétions",
+    "CONTINUE_BUTTON": "Continuer",
+    "TIMER_OVER_MESSAGE": "Le temps est écoulé !",
+    "NO_PAGES_MESSAGE": "Aucun contenu n'a été configuré pour cette activité.",
+    "EMAIL": {
+      "LABEL": "Adresse e-mail",
+      "PLACEHOLDER": "votre@email.com",
+      "SUBMIT": "Envoyer",
+      "SUBMITTING": "Envoi en cours…",
+      "SUCCESS": "E-mail soumis avec succès.",
+      "ERROR": "Échec de la soumission. Veuillez réessayer.",
+      "INVALID": "Veuillez saisir une adresse e-mail valide."
+    },
+    "ANSWERS": {
+      "TITLE": "Complétions",
+      "TABLE": {
+        "STARTED_AT_HEAD": "Démarré le",
+        "COMPLETED_AT_HEAD": "Complété le",
+        "DURATION_HEAD": "Durée",
+        "CONSENT_HEAD": "Cases à cocher"
+      }
+    },
+    "SETTINGS": {
+      "TITLE": "Paramètres",
+      "SAVE_BTN": "Enregistrer",
+      "SAVED_BTN": "Enregistré",
+      "GENERAL": {
+        "TITLE": "Général",
+        "LANGUAGE_LABEL": "Langue du lecteur",
+        "END_PAGE_LINK_LABEL": "Lien de fin",
+        "END_PAGE_LINK_HELPER": "Si renseigné, le bouton Continuer final redirige ici."
+      },
+      "PAGES": {
+        "TITLE": "Pages",
+        "ADD_BTN": "Ajouter une page",
+        "PAGE_TITLE": "Page {{n}}",
+        "MOVE_UP": "Monter",
+        "MOVE_DOWN": "Descendre",
+        "DELETE": "Supprimer la page",
+        "ADD_TEXT": "Ajouter du texte",
+        "ADD_TIMER": "Ajouter un minuteur",
+        "ADD_CHECKBOX": "Ajouter une case",
+        "ADD_EMAIL": "Ajouter un e-mail",
+        "AUDIO": {
+          "SELECT_LABEL": "Audio",
+          "NONE": "Pas d'audio",
+          "CUSTOM": "URL personnalisée…",
+          "URL_LABEL": "URL audio"
+        },
+        "COMPONENT": {
+          "MOVE_UP": "Monter",
+          "MOVE_DOWN": "Descendre",
+          "DELETE": "Supprimer",
+          "TEXT": {
+            "PLACEHOLDER": "Saisir du texte…"
+          },
+          "TIMER": {
+            "DURATION_LABEL": "Durée (minutes)",
+            "AUTO_CONTINUE_LABEL": "Continuer automatiquement à la fin"
+          },
+          "CHECKBOX": {
+            "LABEL": "Libellé de la case",
+            "REQUIRED_LABEL": "Obligatoire avant de continuer"
+          },
+          "EMAIL": {
+            "POST_URL_LABEL": "URL de destination (POST)",
+            "PLACEHOLDER_LABEL": "Texte indicatif (optionnel)",
+            "REQUIRED_LABEL": "Obligatoire avant de continuer"
+          }
+        }
+      }
+    }
   }
 }

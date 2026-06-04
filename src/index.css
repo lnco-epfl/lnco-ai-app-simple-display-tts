@@ -1,3 +1,5 @@
+@import 'react-quill/dist/quill.snow.css';
+
 /* define colors */
 :root {
   --graasp-primary: #5050d2;
@@ -6,7 +8,16 @@
     'Liberation Mono', monospace;
 }
 
+/* Constrain images in the Quill editor and in rendered text blocks */
+.ql-editor img,
+.text-block img {
+  max-width: 80%;
+  height: auto;
+  display: block;
+}
+
 body {
+  font-size: 1.5rem;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

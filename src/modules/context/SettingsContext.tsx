@@ -1,60 +1,28 @@
-import { FC, ReactElement, createContext, useContext } from 'react';
+import {
+  FC,
+  ReactElement,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react';
 
 import { AppSetting } from '@graasp/sdk';
 
-import {
-  AnswersSettings,
-  GeneralSettings,
-  QuestionSettings,
-} from '@/config/appSettings';
+import { AppSettingsType, DEFAULT_SETTINGS } from '@/config/appSettings';
 
 import { hooks, mutations } from '../../config/queryClient';
 import Loader from '../common/Loader';
 
-// mapping between Setting names and their data type
-// eslint-disable-next-line @typescript-eslint/ban-types
-type AllSettingsType = {
-  question: QuestionSettings;
-  answers: AnswersSettings;
-  general: GeneralSettings;
+const SETTING_NAME = 'settings' as const;
+
+export type SettingsContextType = {
+  settings: AppSettingsType;
+  saveSettings: (patch: Partial<AppSettingsType>) => void;
 };
 
-// default values for the data property of settings by name
-const defaultSettingsValues: AllSettingsType = {
-  question: {
-    label: '',
-  },
-  answers: {
-    answers: [],
-    multipleAnswers: false,
-  },
-  general: {
-    required: false,
-    autosubmit: true,
-  },
-};
-
-// list of the settings names
-const ALL_SETTING_NAMES = [
-  // name of your settings
-  'question',
-  'answers',
-  'general',
-] as const;
-
-// automatically generated types
-type AllSettingsNameType = (typeof ALL_SETTING_NAMES)[number];
-type AllSettingsDataType = AllSettingsType[keyof AllSettingsType];
-
-export type SettingsContextType = AllSettingsType & {
-  saveSettings: (
-    name: AllSettingsNameType,
-    newValue: AllSettingsDataType,
-  ) => void;
-};
-
-const defaultContextValue = {
-  ...defaultSettingsValues,
+const defaultContextValue: SettingsContextType = {
+  settings: DEFAULT_SETTINGS,
   saveSettings: () => null,
 };
 
@@ -73,60 +41,45 @@ export const SettingsProvider: FC<Prop> = ({ children }) => {
     isSuccess,
   } = hooks.useAppSettings();
 
-  const saveSettings = (
-    name: AllSettingsNameType,
-    newValue: AllSettingsDataType,
-  ): void => {
-    if (appSettingsList) {
-      const previousSetting = appSettingsList.find(
-        (s: AppSetting) => s.name === name,
+  const settings = useMemo((): AppSettingsType => {
+    if (isSuccess && appSettingsList) {
+      const setting = appSettingsList.find(
+        (s: AppSetting) => s.name === SETTING_NAME,
       );
-      // setting does not exist
-      if (!previousSetting) {
-        postAppSetting({
-          data: newValue,
-          name,
-        });
-      } else {
-        patchAppSetting({
-          id: previousSetting.id,
-          data: newValue,
-        });
+      if (setting) {
+        return {
+          ...DEFAULT_SETTINGS,
+          ...(setting.data as Partial<AppSettingsType>),
+        };
       }
     }
-  };
+    return DEFAULT_SETTINGS;
+  }, [isSuccess, appSettingsList]);
+
+  const saveSettings = useCallback(
+    (patch: Partial<AppSettingsType>): void => {
+      if (!appSettingsList) return;
+      const mergedValue = { ...settings, ...patch };
+      const previousSetting = appSettingsList.find(
+        (s: AppSetting) => s.name === SETTING_NAME,
+      );
+      if (!previousSetting) {
+        postAppSetting({ data: mergedValue, name: SETTING_NAME });
+      } else {
+        patchAppSetting({ id: previousSetting.id, data: mergedValue });
+      }
+    },
+    [appSettingsList, settings, postAppSetting, patchAppSetting],
+  );
+
+  const contextValue = useMemo(
+    () => ({ settings, saveSettings }),
+    [settings, saveSettings],
+  );
 
   if (isLoading) {
     return <Loader />;
   }
-
-  const getContextValue = (): SettingsContextType => {
-    if (isSuccess) {
-      const allSettings: AllSettingsType = ALL_SETTING_NAMES.reduce(
-        <T extends AllSettingsNameType>(acc: AllSettingsType, key: T) => {
-          const setting = appSettingsList.find(
-            (s: AppSetting) => s.name === key,
-          );
-          if (setting) {
-            const settingData =
-              setting?.data as unknown as AllSettingsType[typeof key];
-            acc[key] = settingData;
-          } else {
-            acc[key] = defaultSettingsValues[key];
-          }
-          return acc;
-        },
-        defaultSettingsValues,
-      );
-      return {
-        ...allSettings,
-        saveSettings,
-      };
-    }
-    return defaultContextValue;
-  };
-
-  const contextValue = getContextValue();
 
   return (
     <SettingsContext.Provider value={contextValue}>
