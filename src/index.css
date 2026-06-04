@@ -30,38 +30,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.scroll-hint {
-  position: fixed;
-  right: 32px;
-  z-index: 1000;
-  padding: 16px 28px;
-  background: rgba(44, 62, 80, 0.9);
-  color: #fff;
-  border: none;
-  border-radius: 50px;
-  font-size: 1.15rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(6px);
-  transition: background 0.2s ease, transform 0.15s ease;
-  user-select: none;
-}
-
-.scroll-hint:hover {
-  background: rgba(44, 62, 80, 1);
-  transform: scale(1.06);
-}
-
-.scroll-hint:active {
-  transform: scale(0.97);
-}
-
-.scroll-hint--down {
-  bottom: 32px;
-}
-
-.scroll-hint--up {
-  top: 90px;
-}

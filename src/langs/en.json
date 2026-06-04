@@ -2,8 +2,6 @@
   "translations": {
     "Answers": "Completions",
     "CONTINUE_BUTTON": "Continue",
-    "SCROLL_DOWN": "Scroll down",
-    "SCROLL_UP": "Scroll up",
     "TIMER_OVER_MESSAGE": "Time is up!",
     "NO_PAGES_MESSAGE": "No content has been configured for this activity.",
     "EMAIL": {

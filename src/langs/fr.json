@@ -2,8 +2,6 @@
   "translations": {
     "Answers": "Complétions",
     "CONTINUE_BUTTON": "Continuer",
-    "SCROLL_DOWN": "Défiler vers le bas",
-    "SCROLL_UP": "Défiler vers le haut",
     "TIMER_OVER_MESSAGE": "Le temps est écoulé !",
     "NO_PAGES_MESSAGE": "Aucun contenu n'a été configuré pour cette activité.",
     "EMAIL": {
