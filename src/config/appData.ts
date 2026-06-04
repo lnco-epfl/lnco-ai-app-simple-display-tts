@@ -1,4 +1,4 @@
-import { AppData, AppDataVisibility } from '@graasp/sdk';
+import { AppData, AppDataVisibility } from '@lnco-ai/sdk';
 
 export const COMPLETION_APP_DATA_TYPE = 'completion' as const;
 
@@ -12,6 +12,8 @@ export type CompletionData = {
   completedAt: string;
   durationSeconds: number;
   consentChecks: ConsentCheck[];
+  participantId?: string;
+  participantCode?: string;
 };
 
 export type CompletionAppData = AppData & {

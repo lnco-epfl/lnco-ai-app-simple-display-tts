@@ -1,4 +1,4 @@
-import { Context, PermissionLevel } from '@graasp/sdk';
+import { Context, PermissionLevel } from '@lnco-ai/sdk';
 
 import {
   MCQ_QUESTION_CY,

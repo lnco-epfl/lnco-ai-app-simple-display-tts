@@ -16,6 +16,8 @@
     "ANSWERS": {
       "TITLE": "Complétions",
       "TABLE": {
+        "PARTICIPANT_ID_HEAD": "ID participant",
+        "PARTICIPANT_CODE_HEAD": "Code participant",
         "STARTED_AT_HEAD": "Démarré le",
         "COMPLETED_AT_HEAD": "Complété le",
         "DURATION_HEAD": "Durée",

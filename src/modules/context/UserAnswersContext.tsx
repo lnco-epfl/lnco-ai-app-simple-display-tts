@@ -8,8 +8,8 @@ import {
   useState,
 } from 'react';
 
-import { useLocalContext } from '@graasp/apps-query-client';
-import { AppData, PermissionLevel, PermissionLevelCompare } from '@graasp/sdk';
+import { useLocalContext } from '@lnco-ai/apps-query-client';
+import { AppData, PermissionLevel, PermissionLevelCompare } from '@lnco-ai/sdk';
 
 import {
   COMPLETION_APP_DATA_TYPE,
@@ -44,7 +44,7 @@ export const UserAnswersProvider: FC<{
   const [allCompletionsAppData, setAllCompletionsAppData] =
     useState<CompletionAppData[]>();
   const { mutate: postAppData } = mutations.usePostAppData();
-  const { permission, memberId } = useLocalContext();
+  const { permission, accountId, screenCalibration } = useLocalContext();
 
   const isAdmin = useMemo(
     () => PermissionLevelCompare.gte(permission, PermissionLevel.Admin),
@@ -57,11 +57,11 @@ export const UserAnswersProvider: FC<{
         (d: AppData) => d.type === COMPLETION_APP_DATA_TYPE,
       ) as CompletionAppData[];
       setAllCompletionsAppData(completions);
-      if (completions.some((d) => d.member.id === memberId)) {
+      if (completions.some((d) => d.account.id === accountId)) {
         setIsCompleted(true);
       }
     }
-  }, [isSuccess, data, memberId]);
+  }, [isSuccess, data, accountId]);
 
   const completeApp = useMemo(
     () =>
@@ -76,11 +76,13 @@ export const UserAnswersProvider: FC<{
           completedAt,
           durationSeconds,
           consentChecks,
+          participantId: screenCalibration?.participantId,
+          participantCode: screenCalibration?.participantCode,
         };
         postAppData(makeCompletionAppData(completionData));
         setIsCompleted(true);
       },
-    [postAppData, startedAt],
+    [postAppData, startedAt, screenCalibration],
   );
 
   const contextValue = useMemo(

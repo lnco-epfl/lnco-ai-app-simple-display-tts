@@ -7,7 +7,7 @@ import {
   useMemo,
 } from 'react';
 
-import { AppSetting } from '@graasp/sdk';
+import { AppSetting } from '@lnco-ai/sdk';
 
 import { AppSettingsType, DEFAULT_SETTINGS } from '@/config/appSettings';
 

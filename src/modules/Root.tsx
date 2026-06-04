@@ -10,12 +10,6 @@ import {
   responsiveFontSizes,
 } from '@mui/material/styles';
 
-import {
-  GraaspContextDevTool,
-  WithLocalContext,
-  WithTokenContext,
-} from '@graasp/apps-query-client';
-
 // Include Robot fonts directly.
 // eslint-disable-next-line import/no-extraneous-dependencies
 import '@fontsource/roboto/300.css';
@@ -25,6 +19,11 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import '@fontsource/roboto/700.css';
+import {
+  GraaspContextDevTool,
+  WithLocalContext,
+  WithTokenContext,
+} from '@lnco-ai/apps-query-client';
 
 import i18nConfig from '@/config/i18n';
 import {
