@@ -219,7 +219,7 @@ const DisplayView: FC = () => {
       </Box>
 
       {audioActive && (
-        <AudioNarrationControls narration={narration} position="bottom-right" />
+        <AudioNarrationControls narration={narration} position="bottom-left" />
       )}
     </Stack>
   );
