@@ -26,6 +26,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+span {
+  font-size: 1.5rem !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
