@@ -13,5 +13,6 @@ export const PRELOADED_AUDIO: PreloadedAudio[] = [
   { label: 'Intro screen 3', src: '/assets/audio/intro-screen-3.mp3' },
   { label: 'Break 5 minutes', src: '/assets/audio/break-5-minutes.mp3' },
   { label: 'Intro screen audio', src: '/assets/audio/intro-screen-audio.mp3' },
-  { label: 'Gift Card', src: '/assets/audio/gift-card.mp3' },
+  { label: 'Gift Card (FR)', src: '/assets/audio/gift-card-fr.mp3' },
+  { label: 'Gift Card (CH)', src: '/assets/audio/gift-card-ch.mp3' },
 ];
