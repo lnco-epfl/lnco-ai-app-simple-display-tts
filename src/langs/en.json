@@ -16,7 +16,7 @@
     "ANSWERS": {
       "TITLE": "Completions",
       "TABLE": {
-        "PARTICIPANT_ID_HEAD": "Participant ID",
+        "PARTICIPANT_ID_HEAD": "Participant Name",
         "PARTICIPANT_CODE_HEAD": "Participant Code",
         "STARTED_AT_HEAD": "Started At",
         "COMPLETED_AT_HEAD": "Completed At",

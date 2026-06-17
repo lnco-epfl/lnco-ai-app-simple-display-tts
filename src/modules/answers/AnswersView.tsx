@@ -43,7 +43,7 @@ const AnswersView: FC = () => {
           <TableBody>
             {allCompletionsAppData?.map((record) => (
               <TableRow key={record.id}>
-                <TableCell>{record.data.participantId ?? '—'}</TableCell>
+                <TableCell>{record.account.name ?? '—'}</TableCell>
                 <TableCell>{record.data.participantCode ?? '—'}</TableCell>
                 <TableCell>{formatDate(record.data.startedAt)}</TableCell>
                 <TableCell>{formatDate(record.data.completedAt)}</TableCell>
