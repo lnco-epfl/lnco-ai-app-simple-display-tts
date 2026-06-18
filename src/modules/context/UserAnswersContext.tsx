@@ -22,12 +22,14 @@ import { hooks, mutations } from '@/config/queryClient';
 
 type AppStateContextType = {
   completeApp: (consentChecks: ConsentCheck[]) => void;
+  deleteEntry: (id: string) => void;
   isCompleted: boolean;
   allCompletionsAppData?: CompletionAppData[];
 };
 
 const defaultContextValue: AppStateContextType = {
   completeApp: () => null,
+  deleteEntry: () => null,
   isCompleted: false,
 };
 
@@ -44,6 +46,7 @@ export const UserAnswersProvider: FC<{
   const [allCompletionsAppData, setAllCompletionsAppData] =
     useState<CompletionAppData[]>();
   const { mutate: postAppData } = mutations.usePostAppData();
+  const { mutate: deleteAppData } = mutations.useDeleteAppData();
   const { permission, accountId, screenCalibration } = useLocalContext();
 
   const isAdmin = useMemo(
@@ -85,13 +88,22 @@ export const UserAnswersProvider: FC<{
     [postAppData, startedAt, screenCalibration],
   );
 
+  const deleteEntry = useMemo(
+    () =>
+      (id: string): void => {
+        deleteAppData({ id });
+      },
+    [deleteAppData],
+  );
+
   const contextValue = useMemo(
     () => ({
       completeApp,
+      deleteEntry,
       isCompleted,
       allCompletionsAppData: isAdmin ? allCompletionsAppData : undefined,
     }),
-    [completeApp, isCompleted, isAdmin, allCompletionsAppData],
+    [completeApp, deleteEntry, isCompleted, isAdmin, allCompletionsAppData],
   );
 
   return (

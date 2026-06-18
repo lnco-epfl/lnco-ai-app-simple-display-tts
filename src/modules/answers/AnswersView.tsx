@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
@@ -15,7 +17,7 @@ import useUserAnswers from '../context/UserAnswersContext';
 
 const AnswersView: FC = () => {
   const { t } = useTranslation();
-  const { allCompletionsAppData } = useUserAnswers();
+  const { allCompletionsAppData, deleteEntry } = useUserAnswers();
 
   const formatDate = (iso: string): string => {
     try {
@@ -38,6 +40,7 @@ const AnswersView: FC = () => {
               <TableCell>{t('ANSWERS.TABLE.COMPLETED_AT_HEAD')}</TableCell>
               <TableCell>{t('ANSWERS.TABLE.DURATION_HEAD')}</TableCell>
               <TableCell>{t('ANSWERS.TABLE.CONSENT_HEAD')}</TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -54,6 +57,20 @@ const AnswersView: FC = () => {
                     : record.data.consentChecks
                         .map((c) => (c.checked ? '✓' : '✗'))
                         .join(', ')}
+                </TableCell>
+                <TableCell padding="checkbox">
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      // eslint-disable-next-line no-alert
+                      if (window.confirm('Delete this entry?')) {
+                        deleteEntry(record.id);
+                      }
+                    }}
+                    aria-label="delete"
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
