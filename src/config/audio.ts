@@ -15,4 +15,12 @@ export const PRELOADED_AUDIO: PreloadedAudio[] = [
   { label: 'Intro screen audio', src: '/assets/audio/intro-screen-audio.mp3' },
   { label: 'Gift Card (FR)', src: '/assets/audio/gift-card-fr.mp3' },
   { label: 'Gift Card (CH)', src: '/assets/audio/gift-card-ch.mp3' },
+  {
+    label: 'Audio Guidance (EN)',
+    src: '/assets/audio/intro-audio-guidance-en.mp3',
+  },
+  {
+    label: 'Sit Comfortably (EN)',
+    src: '/assets/audio/intro-sit-comfortable-en.mp3',
+  },
 ];
